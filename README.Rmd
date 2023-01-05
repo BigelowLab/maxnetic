@@ -1,0 +1,82 @@
+---
+title: "maxnetic"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+[Maxnetic](https://github.com/BigelowLab/maxnetic) provide supplementary tools to augment the [maxnet](https://CRAN.R-project.org/package=maxnet) package.
+
+Information about ROC and AUC were gleaned from the [Receiver operating characteristic](# https://en.wikipedia.org/wiki/Receiver_operating_characteristic) wikipedia page.
+
+### Requirements
+
+ + [R v 4.1+](https://www.r-project.org/)
+ + [dplyr](https://CRAN.R-project.org/package=dplyr)
+ + [ggplot2](https://CRAN.R-project.org/package=ggplot2)
+
+
+### Installation
+
+```
+remotes::install_github("BigelowLab/maxnetic")
+```
+
+### Functionality
+
+ + `TPR()` true positive rate, 
+ + `FPR()` false positive rate 
+ + `ROC()` receiver operator values 
+ + `AUC()` compute are under curve of ROC
+ + `plot()` plot an `ROC` class object (base graphics or gpplot2)
+ + `write_maxnet()` and `read_maxnet()` for IO to R's serialized file format
+
+
+### Usage
+
+```{r load}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(maxnet)
+  library(maxnetic)
+  library(ggplot2)
+})
+```
+
+Next we load data, make a model and then a data frame with the input labels and the output prediction.
+
+
+```{r gather_results}
+obs <- dplyr::as_tibble(maxnet::bradypus)
+
+mod <- maxnet(obs$presence, dplyr::select(obs, -presence))
+pred <- predict(mod, newdata = bradypus, na.rm = TRUE, type = "cloglog")
+
+x <- dplyr::tibble(pres = obs$presence,
+                   pred = pred[,1])
+dplyr::glimpse(x)
+```
+
+
+Collect the responses.
+
+```{r collect_response}
+r <- plot(mod, type = "cloglog", plot = FALSE)
+ok = lapply(r, str)
+```
+
+Plot the response curves
+
+```{r plot_response}
+plot(mod, type = 'cloglog', mar = c(2,2,2,1))
+```
+
+Now compute ROC and show
+
+```{r roc}
+roc <- ROC(x)
+plot(roc, use = "base", title = "Base Graphics")
+plot(roc, use = "ggplot", title = "ggplot2")
+```

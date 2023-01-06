@@ -21,12 +21,13 @@ wikipedia page.
 
 ### Functionality
 
-- `TPR` true positive rate,
-- `FPR` false positive rate
-- `ROC` receiver operator values
-- `AUC` compute are under curve of ROC
-- `plot` plot an `ROC` class object (base graphics or gpplot2)
-- `write_maxnet` and `read_maxnet` for IO to R’s serialized file format
+- `TPR()` true positive rate,
+- `FPR()` false positive rate
+- `ROC()` receiver operator values
+- `AUC()` compute are under curve of ROC
+- `plot()` plot an `ROC` class object (base graphics or gpplot2)
+- `write_maxnet()` and `read_maxnet()` for IO to R’s serialized file
+  format
 
 ### Usage
 

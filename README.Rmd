@@ -38,8 +38,8 @@ remotes::install_github("BigelowLab/maxnetic")
 
 ```{r load}
 suppressPackageStartupMessages({
-  library(dplyr)
   library(maxnet)
+  library(dplyr)
   library(maxnetic)
   library(ggplot2)
 })
@@ -64,7 +64,6 @@ Collect the responses.
 
 ```{r collect_response}
 r <- plot(mod, type = "cloglog", plot = FALSE)
-ok = lapply(r, str)
 ```
 
 Plot the response curves
@@ -77,6 +76,5 @@ Now compute ROC and show
 
 ```{r roc}
 roc <- ROC(x)
-plot(roc, use = "base", title = "Base Graphics")
-plot(roc, use = "ggplot", title = "ggplot2")
+plot(roc, use = "ggplot", title = "ROC")
 ```

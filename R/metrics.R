@@ -41,8 +41,13 @@ AUC <- function(x, y){
   if (inherits(x, "ROC")){
     return(AUC(x$tpr, x$fpr))
   }
-  r <- range(y)
-  mean(x)/(r[2]-r[1])
+  auc = 0
+  for(i in seq_len(length(x) - 1)) {
+    auc = auc + (0.5 * (y[i] - y[i + 1]) * (x[i + 1] + x[i]))
+  }
+  return(auc)
+  # r <- range(y)
+  # mean(x)/(r[2]-r[1])
 }
 
 #' Compute Receiver Operator Curve (ROC) space values 

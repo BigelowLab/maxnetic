@@ -9,6 +9,7 @@
 #' @return the input x
 write_maxnet <- function(x, filename, ...){
   saveRDS(x, file = filename[1], ...) 
+  return(x)
 }
 
 #' Read a maxnet model file

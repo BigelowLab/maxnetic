@@ -1,34 +1,31 @@
 
-#' Compute True Positive Rate \code{TP/P}
+#' Compute True Positive Rate `TP/P` aka "sensitivity"
+#' 
+#' See more [here](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
 #' 
 #' @export
-#' @param x tibble with columns pres (0/1) and pred (0-1) 
-#' @param threshold, numeric values at or above are 'positive' predictions
-#' @return vector of TPR
-TPR <- function(x, threshold = seq(from = 0, by = 0.01, length = 100)){
-  present <- x$pres > 0
-  P <- sum(present)
-  TP <- sapply(threshold,
-               function(thresh, present = NULL) {
-                 sum(x$pred >= thresh & present)
-               }, present = present)
-  TP/P
+#' @param x tibble with columns label (0/1) and pred (0-1) 
+#' @param ... further arguments for \code{\link[AUC]{sensitivity}}
+#' @return list as per \code{\link[AUC]{sensitivity}}
+TPR <- function(x, ...){
+  if (!is.factor(x$label)) x$label = factor(x$label, levels = c(0,1))
+  r = AUC::sensitivity(x$pred, x$label, ...)
+  class(r) <- c("TPR", class(r))
+  r
 }
 
-#' False Positive Rate \code{FP/N}
+#' False Positive Rate `FP/N` aka "specificity"
 #' 
+#' See more [here](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
 #' @export
-#' @param x tibble with columns pres (0/1) and pred (0-1) 
-#' @param threshold, numeric values at or above are 'positive' predictions
-#' @return vector of FPR
-FPR <- function(x, threshold = seq(from = 0, by = 0.01, length = 100)){
-  negative <- x$pres <= 0
-  N <- sum(negative)
-  FP <- sapply(threshold,
-               function(thresh, negative = NULL) {
-                 sum(x$pred >= thresh & negative)
-               }, negative = negative)
-  FP/N
+#' @param x tibble with columns label (0/1) and pred (0-1) 
+#' @param ... further arguments for \code{\link[AUC]{sensitivity}}
+#' @return a list as per \code{\link[AUC]{sensitivity}}
+FPR <- function(x, ...){
+  if (!is.factor(x$label)) x$label = factor(x$label, levels = c(0,1))
+  r = AUC::specificity(x$pred, x$label, ...)
+  class(r) = c("FPR", class(r))
+  r
 }
 
 #' Compute the AUC for ROC values
@@ -36,6 +33,7 @@ FPR <- function(x, threshold = seq(from = 0, by = 0.01, length = 100)){
 #'  We use the [trapezoidal rule](https://en.wikipedia.org/wiki/Trapezoidal_rule)
 #' @export
 #' @param x numeric, vector of \code{TPR} or \code{ROC} object
+<<<<<<< HEAD
 #' @param y numeric, vector of \\code{FPR} or ignored if \code{x} inherits from class \code{ROC}
 #' @return numeric Area Under Curve
 AUC <- function(x, y){
@@ -47,18 +45,23 @@ AUC <- function(x, y){
     auc = auc + (0.5 * (y[i + 1] - y[i] ) * (x[i + 1] - x[i]) )
   }
   return(auc)
+=======
+#' @param ... other arguments for \code{\link[AUC]{auc}}
+#' @return numeric Area Under Curve as per \code{\link[AUC]{auc}}
+AUC <- function(x, ...){
+  r = AUC::auc(ROC(x),...)
+  r
+>>>>>>> b83e0a1 (add AUC dependency)
 }
 
 #' Compute Receiver Operator Curve (ROC) space values 
 #' 
 #' @export
-#' @param x tibble with columns pres (0/1) and pred (0-1) 
-#' @param threshold, numeric values at or above are 'positive' predictions
-#' @return data frame of class ROC with variables \code{tpr} and \code{fpr}
-ROC <- function(x, threshold = seq(from = 0, by = 0.01, length = 100)){
-  roc <- dplyr::tibble(
-    tpr = TPR(x, threshold = threshold),
-    fpr = FPR(x, threshold = threshold))
-  class(roc) <- c("ROC", class(roc))
-  roc
+#' @param x tibble with columns label (0/1) and pred (0-1) 
+#' @return list as per \code{\link[AUC]{roc}}
+ROC <- function(x){
+  if (!is.factor(x$label)) x$label = factor(x$label, levels = c(0,1))
+  r = AUC::roc(x$pred, x$label)
+  class(r) = c("ROC", class(r))
+  r
 }

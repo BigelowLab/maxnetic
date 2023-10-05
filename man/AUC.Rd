@@ -4,15 +4,15 @@
 \alias{AUC}
 \title{Compute the AUC for ROC values}
 \usage{
-AUC(x, y)
+AUC(x, ...)
 }
 \arguments{
 \item{x}{numeric, vector of \code{TPR} or \code{ROC} object}
 
-\item{y}{numeric, vector of \\code{FPR} or ignored if \code{x} inherits from class \code{ROC}}
+\item{...}{other arguments for \code{\link[AUC]{auc}}}
 }
 \value{
-numeric Area Under Curve
+numeric Area Under Curve as per \code{\link[AUC]{auc}}
 }
 \description{
 We use the \href{https://en.wikipedia.org/wiki/Trapezoidal_rule}{trapezoidal rule}

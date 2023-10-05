@@ -9,11 +9,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Maxnetic](https://github.com/BigelowLab/maxnetic) provide supplementary tools to augment the [maxnet](https://CRAN.R-project.org/package=maxnet) package.
 
-Information about ROC and AUC were gleaned from the [Receiver operating characteristic](# https://en.wikipedia.org/wiki/Receiver_operating_characteristic) wikipedia page.
+Metrics like, TPR, FPR, ROC and AUC are all computed with the [AUC](https://CRAN.R-project.org/package=AUC) R package.
 
 ### Requirements
 
  + [R v 4.1+](https://www.r-project.org/)
+ + [AUC](https://CRAN.R-project.org/package=AUC)
  + [dplyr](https://CRAN.R-project.org/package=dplyr)
  + [ggplot2](https://CRAN.R-project.org/package=ggplot2)
 
@@ -21,18 +22,18 @@ Information about ROC and AUC were gleaned from the [Receiver operating characte
 ### Installation
 
 ```
+if (!("AUC" %in% rownames(installed.packages())) install.packages("AUC")
 remotes::install_github("BigelowLab/maxnetic")
 ```
 
 ### Functionality
 
- + `TPR()` true positive rate, 
- + `FPR()` false positive rate 
+ + `TPR()` true positive rate ("sensitivity") 
+ + `FPR()` false positive rate ("specificity")
  + `ROC()` receiver operator values 
  + `AUC()` compute are under curve of ROC
  + `plot()` plot an `ROC` class object (base graphics or gpplot2)
  + `write_maxnet()` and `read_maxnet()` for IO to R's serialized file format
-
 
 ### Usage
 
@@ -54,7 +55,7 @@ obs <- dplyr::as_tibble(maxnet::bradypus)
 mod <- maxnet(obs$presence, dplyr::select(obs, -presence))
 pred <- predict(mod, newdata = bradypus, na.rm = TRUE, type = "cloglog")
 
-x <- dplyr::tibble(pres = obs$presence,
+x <- dplyr::tibble(label = obs$presence,
                    pred = pred[,1])
 dplyr::glimpse(x)
 ```
@@ -72,9 +73,9 @@ Plot the response curves
 plot(mod, type = 'cloglog', mar = c(2,2,2,1))
 ```
 
-Now compute ROC and show
+Now compute ROC and show using either base or ggplot2 graphics.
 
 ```{r roc}
-roc <- ROC(x)
-plot(roc, use = "ggplot", title = "ROC")
+plot_ROC(x, use = "base", title = "Base Graphics")
+plot_ROC(x, use = "ggplot", title = "ggplot2 Graphics")
 ```

@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{TPR}
 \alias{TPR}
-\title{Compute True Positive Rate `TP/P` aka "sensitivity"}
+\title{Compute True Positive Rate \code{TP/P} aka "sensitivity"}
 \usage{
 TPR(x, ...)
 }
@@ -15,5 +15,5 @@ TPR(x, ...)
 list as per \code{\link[AUC]{sensitivity}}
 }
 \description{
-See more [here](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
+See more \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{here}
 }

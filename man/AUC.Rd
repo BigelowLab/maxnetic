@@ -7,7 +7,7 @@
 AUC(x, ...)
 }
 \arguments{
-\item{x}{numeric, vector of \code{TPR} or \code{ROC} object}
+\item{x}{tibble with columns label (0/1) and pred (0-1)}
 
 \item{...}{other arguments for \code{\link[AUC]{auc}}}
 }
@@ -15,5 +15,5 @@ AUC(x, ...)
 numeric Area Under Curve as per \code{\link[AUC]{auc}}
 }
 \description{
-We use the \href{https://en.wikipedia.org/wiki/Trapezoidal_rule}{trapezoidal rule}
+Compute the AUC for ROC values
 }

@@ -15,13 +15,7 @@ plot_ROC <- function(x,
                      title = "ROC",
                      use = "ggplot",
                      ...){
-  
-  if (FALSE){
-    xlab = "False Positive Rate (Specificity)"
-    ylab = "True Positive Rate (Sensitivity)"
-    title = "ROC"
-    use = "ggplot"
-  }
+
 
   if (any(grepl("ggplot", use, fixed = TRUE))){
     qplot_ROC(x, xlab = xlab, ylab = ylab, title = title, ...)

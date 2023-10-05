@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{FPR}
 \alias{FPR}
-\title{False Positive Rate `FP/N` aka "specificity"}
+\title{False Positive Rate \code{FP/N} aka "specificity"}
 \usage{
 FPR(x, ...)
 }
@@ -15,5 +15,5 @@ FPR(x, ...)
 a list as per \code{\link[AUC]{sensitivity}}
 }
 \description{
-See more [here](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
+See more \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{here}
 }

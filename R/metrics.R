@@ -30,28 +30,13 @@ FPR <- function(x, ...){
 
 #' Compute the AUC for ROC values
 #' 
-#'  We use the [trapezoidal rule](https://en.wikipedia.org/wiki/Trapezoidal_rule)
 #' @export
-#' @param x numeric, vector of \code{TPR} or \code{ROC} object
-<<<<<<< HEAD
-#' @param y numeric, vector of \\code{FPR} or ignored if \code{x} inherits from class \code{ROC}
-#' @return numeric Area Under Curve
-AUC <- function(x, y){
-  if (inherits(x, "ROC")){
-    return(AUC(x$tpr, x$fpr))
-  }
-  auc = 0
-  for(i in seq_len(length(x) - 1)) {
-    auc = auc + (0.5 * (y[i + 1] - y[i] ) * (x[i + 1] - x[i]) )
-  }
-  return(auc)
-=======
+#' @param x tibble with columns label (0/1) and pred (0-1) 
 #' @param ... other arguments for \code{\link[AUC]{auc}}
 #' @return numeric Area Under Curve as per \code{\link[AUC]{auc}}
 AUC <- function(x, ...){
   r = AUC::auc(ROC(x),...)
   r
->>>>>>> b83e0a1 (add AUC dependency)
 }
 
 #' Compute Receiver Operator Curve (ROC) space values 

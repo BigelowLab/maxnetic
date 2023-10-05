@@ -28,7 +28,7 @@
 }
 \value{
 ggplot2 object if \code{use} is
- 'ggplot2' or 'ggplot'
+'ggplot2' or 'ggplot'
 }
 \description{
 Plot ROC curve

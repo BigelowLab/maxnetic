@@ -15,5 +15,5 @@ AUC(x, y)
 numeric Area Under Curve
 }
 \description{
-Compute the AUC for ROC values
+We use the \href{https://en.wikipedia.org/wiki/Trapezoidal_rule}{trapezoidal rule}
 }

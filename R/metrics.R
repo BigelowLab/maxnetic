@@ -33,6 +33,7 @@ FPR <- function(x, threshold = seq(from = 0, by = 0.01, length = 100)){
 
 #' Compute the AUC for ROC values
 #' 
+#'  We use the [trapezoidal rule](https://en.wikipedia.org/wiki/Trapezoidal_rule)
 #' @export
 #' @param x numeric, vector of \code{TPR} or \code{ROC} object
 #' @param y numeric, vector of \\code{FPR} or ignored if \code{x} inherits from class \code{ROC}
@@ -43,11 +44,9 @@ AUC <- function(x, y){
   }
   auc = 0
   for(i in seq_len(length(x) - 1)) {
-    auc = auc + (0.5 * (y[i] - y[i + 1]) * (x[i + 1] + x[i]))
+    auc = auc + (0.5 * (y[i + 1] - y[i] ) * (x[i + 1] - x[i]) )
   }
   return(auc)
-  # r <- range(y)
-  # mean(x)/(r[2]-r[1])
 }
 
 #' Compute Receiver Operator Curve (ROC) space values 

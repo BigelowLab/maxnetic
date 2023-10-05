@@ -26,7 +26,7 @@ Metrics like, TPR, FPR, ROC and AUC are all computed with the
 - `FPR()` false positive rate (“specificity”)
 - `ROC()` receiver operator values
 - `AUC()` compute are under curve of ROC
-- `plot()` plot an `ROC` class object (base graphics or gpplot2)
+- `plot_ROC()` plot an `ROC` class object (base graphics or gpplot2)
 - `write_maxnet()` and `read_maxnet()` for IO to R’s serialized file
   format
 

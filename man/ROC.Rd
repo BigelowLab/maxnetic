@@ -10,7 +10,7 @@ ROC(x)
 \item{x}{tibble with columns label (0/1) and pred (0-1)}
 }
 \value{
-list as per \code{\link[AUC]{roc}}
+list as per \code{\link[AUC]{roc}} with 'area' added
 }
 \description{
 Compute Receiver Operator Curve (ROC) space values

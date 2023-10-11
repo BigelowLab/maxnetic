@@ -14,6 +14,8 @@ Roxygen: list(markdown = TRUE)
 Imports:
   rlang,
   AUC,
+  Rfast,
+  stars,
   dplyr,
   ggplot2,
   graphics

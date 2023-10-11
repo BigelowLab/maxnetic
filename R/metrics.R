@@ -43,10 +43,13 @@ AUC <- function(x, ...){
 #' 
 #' @export
 #' @param x tibble with columns label (0/1) and pred (0-1) 
-#' @return list as per \code{\link[AUC]{roc}}
+#' @return list as per \code{\link[AUC]{roc}} with 'area' added
 ROC <- function(x){
   if (!is.factor(x$label)) x$label = factor(x$label, levels = c(0,1))
   r = AUC::roc(x$pred, x$label)
+  r$area = AUC::auc(r)
   class(r) = c("ROC", class(r))
   r
 }
+
+

@@ -14,7 +14,7 @@ write_maxnet(x, filename, ...)
 \item{...}{other arguments for \code{\link[base]{saveRDS}}}
 }
 \value{
-the input x
+the input x invisibly
 }
 \description{
 This provides a pipeable workflow.

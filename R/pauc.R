@@ -39,7 +39,7 @@ pAUC = function(x, y, ...){
 #'  }
 pauc_raster <- function(x, y, time_column = attr(y, "time_column") %||% attr(y, "time_col"), ...){
   v = stars::st_extract(x, y, time_column = time_column)
-  pauc_vector(as.vector(as.vector(x[[1]]), as.vector(v[[1]]), ...))
+  pauc_vector(as.vector(x[[1]]), as.vector(v[[1]]), ...)
 }
 
 #' Compute AUC values ala presence-only data

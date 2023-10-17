@@ -27,6 +27,8 @@ a list of
 \item{fpa, a vector of fractional predicted area}
 \item{sensitive,a vector of sensitivity (1-omission rate)}
 \item{area, scalar AUC value}
+\item{fn, count f non-missing values}
+\item{vn, count v non-missing values}
 }
 }
 \description{

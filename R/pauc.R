@@ -11,6 +11,8 @@
 #'  \item{fpa, a vector of fractional predicted area}
 #'  \item{sensitivity,a vector of sensitivity (1-omission rate)}
 #'  \item{area, scalar AUC value}
+#'  \item{fn, count f non-missing values}
+#'  \item{vn, count v non-missing values}
 #'  }
 pAUC = function(x, y, ...){
   if (inherits(x, 'stars')){
@@ -36,10 +38,12 @@ pAUC = function(x, y, ...){
 #'  \item{fpa, a vector of fractional predicted area}
 #'  \item{sensitive,a vector of sensitivity (1-omission rate)}
 #'  \item{area, scalar AUC value}
+#'  \item{fn, count f non-missing values}
+#'  \item{vn, count v non-missing values}
 #'  }
 pauc_raster <- function(x, y, time_column = attr(y, "time_column") %||% attr(y, "time_col"), ...){
   v = stars::st_extract(x, y, time_column = time_column)
-  pauc_vector(as.vector(x[[1]]), as.vector(v[[1]]), ...)
+  pauc_vector(as.vector(x[[1]]), as.vector(v[[1]]) |> na.omit(), ...)
 }
 
 #' Compute AUC values ala presence-only data
@@ -54,6 +58,8 @@ pauc_raster <- function(x, y, time_column = attr(y, "time_column") %||% attr(y, 
 #'  \item{fpa, a vector of fpa (fractional predicted area)}
 #'  \item{sensitivity, a vector of sensitivity (1-omission rate)}
 #'  \item{area, AUC}
+#'  \item{fn, count f non-missing values}
+#'  \item{vn, count v non-missing values}
 #'  }
 pauc_vector <- function(f, v, 
                        thr = seq(from = 1, to = 0, by = -0.001),
@@ -75,7 +81,9 @@ pauc_vector <- function(f, v,
   }
   list(fpa = x, 
        sensitivity = y,
-       area = sum(diff(x) * (y[2:length(y)]+ y[1:length(y)-1])/2) )
+       area = sum(diff(x) * (y[2:length(y)]+ y[1:length(y)-1])/2),
+       fn = fn,
+       vn = fv)
   
 }
 

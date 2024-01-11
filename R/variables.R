@@ -34,7 +34,7 @@ variable_importance = function(x, y,
   ny = nrow(y)
   r = sapply(names(x$samplemeans),
     function(varname){          # shuffle each variable n times
-      orig_values = y[,varname]
+      orig_values = y[,varname, drop = TRUE]
       r = sapply(seq_len(n),
         function(iter){
           index = sample(ny,ny)   # shuffle the variable

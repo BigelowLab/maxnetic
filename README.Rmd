@@ -47,6 +47,7 @@ remotes::install_github("BigelowLab/maxnetic")
 #### General purpose utility
 
 -   `write_maxnet()` and `read_maxnet()` for IO to R's serialized file format
+-   `variable_importance()` modeled after Peter D Wilson's [fitMaxnet R package](https://github.com/peterbat1/fitMaxnet) `varImportance()` function.
 
 ### Usage
 
@@ -72,25 +73,35 @@ x <- dplyr::tibble(label = obs$presence,
 dplyr::glimpse(x)
 ```
 
-Collect the responses.
+#### Collect the responses.
 
 ```{r collect_response}
 r <- plot(model, type = "cloglog", plot = FALSE)
 ```
 
-Plot the response curves
+#### Plot the response curves
 
 ```{r plot_response}
 plot(model, type = 'cloglog', mar = c(2,2,2,1))
 ```
 
-Now compute ROC and show.
+#### Now compute ROC and show.
 
 ```{r roc}
 roc = ROC(x)
 plot(roc, title = "Bradypus model")
 ```
 
+#### Variable importance via permutation
+
+One way to ascertain "variable importance" is to repeatedly use the model and the input environmental data in a permutation test.  A baseline prediction is made using th For each variable, the variable data is randomly shuffled and a temporary prediction is made. The Pearson's correlation coeeficient is then computed for the baseline and temporary models.  A high correlation tells us that that variable doesn't have much influence on the model output, while conversely a low correlation tells us that the variable has significant importance when computing the model.  The actual metric is transformed to a more familiar "higher is more important" metric. 
+
+```{r variable_importance}
+variable_importance(model, dplyr::select(obs, -presence), type = "cloglog",
+                    arrange = "decreasing")
+```
+
+#### pAUC (presence AUC)
 You can also compute a "presence AUC" which involves only the presence points. Unlike a ROC object, a pAUC object has it's own plot method.
 
 ```{r pauc}

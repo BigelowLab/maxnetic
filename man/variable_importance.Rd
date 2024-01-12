@@ -15,7 +15,7 @@ variable_importance(
 \arguments{
 \item{x}{maxnet model}
 
-\item{y}{table of occurence and background environmental data (data.frame,
+\item{y}{table of occurrence and background environmental data (data.frame,
 tibble, or matrix with column names)}
 
 \item{n}{num, number of iterations}
@@ -27,7 +27,7 @@ the output order}
 as \code{clamp} and \code{type}}
 }
 \value{
-named numeric vector of permutation scores
+table of premutation importance scoires (and raw values)
 }
 \description{
 This is adapted from Peter D Wilson's \href{https://github.com/peterbat1/fitMaxnet}{fitMaxnet R package}.

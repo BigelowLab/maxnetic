@@ -6,14 +6,14 @@
 #'
 #' @export
 #' @param x maxnet model
-#' @param y table of occurence and background environmental data (data.frame,
+#' @param y table of occurrence and background environmental data (data.frame,
 #'   tibble, or matrix with column names)
 #' @param n num, number of iterations
 #' @param arrange char, one of "none" (default), "decreasing" or "increasing" to arrange
 #'    the output order
 #' @param ... other arguments for \code{\link[maxnet]{predict}} such
 #'   as \code{clamp} and \code{type}
-#' @return named numeric vector of permutation scores
+#' @return table of premutation importance scoires (and raw values)
 #' @examples \dontrun{
 #'   library(maxnet)
 #'   data(bradypus)
@@ -43,17 +43,19 @@ variable_importance = function(x, y,
           cor(baseline,m)       # correlate to original
         })
       y[,varname] <- orig_values
-      mean(r)                   # find the average of the correlations
-    })
+      c(mean(r),sd(r), fivenum(r))
+    }) |>
+    t()
+  colnames(r) = c("mean", "sd", "min", "q25", "med", "q75", "max")
+  mean_data =sum(1-r[,1, drop = TRUE])
+  r = dplyr::as_tibble(r, rownames = "var") |>
+    dplyr::mutate(importance = round(100*(1-.data$mean)/mean_data,2), .after = 1)
   # if the correlations with original are high that means shuffling the variable
-  # had little effect on the output models.  Thsu the variable has low influence.
+  # had little effect on the output models.  Thus the variable has low influence.
   # invert the importance so ones with low mean correlation are now higher valued.
-  r = 1 - r
   # just a convenience for the user
-  r = switch(tolower(arrange[1]),
-             "decreasing" = sort(r, decreasing = TRUE),
-             "increasing" = sort(r),
-             r)
-  # prettify
-  round(100*r/sum(r),2)
+  switch(tolower(arrange[1]),
+         "decreasing" = dplyr::arrange(r, dplyr::desc(importance)),
+         "increasing" = dplyr::arrange(r, importance),
+         r)
 }

@@ -94,7 +94,7 @@ plot(roc, title = "Bradypus model")
 
 #### Variable importance via permutation
 
-One way to ascertain "variable importance" is to repeatedly use the model and the input environmental data in a permutation test.  A baseline prediction is made using th For each variable, the variable data is randomly shuffled and a temporary prediction is made. The Pearson's correlation coeeficient is then computed for the baseline and temporary models.  A high correlation tells us that that variable doesn't have much influence on the model output, while conversely a low correlation tells us that the variable has significant importance when computing the model.  The actual metric is transformed to a more familiar "higher is more important" metric. 
+One way to ascertain "variable importance" is to repeatedly use the model and the input environmental data in a permutation test.  A baseline prediction is made using th For each variable, the variable data is randomly shuffled and a temporary prediction is made. The Pearson's correlation coefficient is then computed for the baseline and temporary models.  A high correlation tells us that that variable doesn't have much influence on the model output, while conversely a low correlation tells us that the variable has significant importance when computing the model.  The actual metric is transformed to a more familiar "higher is more important" metric. 
 
 ```{r variable_importance}
 variable_importance(model, dplyr::select(obs, -presence), type = "cloglog",

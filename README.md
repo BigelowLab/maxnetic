@@ -106,7 +106,7 @@ One way to ascertain “variable importance” is to repeatedly use the
 model and the input environmental data in a permutation test. A baseline
 prediction is made using th For each variable, the variable data is
 randomly shuffled and a temporary prediction is made. The Pearson’s
-correlation coeeficient is then computed for the baseline and temporary
+correlation coefficient is then computed for the baseline and temporary
 models. A high correlation tells us that that variable doesn’t have much
 influence on the model output, while conversely a low correlation tells
 us that the variable has significant importance when computing the
@@ -118,12 +118,23 @@ variable_importance(model, dplyr::select(obs, -presence), type = "cloglog",
                     arrange = "decreasing")
 ```
 
-    ## tmn6190_ann tmx6190_ann       h_dem dtr6190_ann      ecoreg pre6190_l10 
-    ##       25.33       14.07        9.11        9.11        7.60        7.58 
-    ##  pre6190_l7 frs6190_ann  pre6190_l1 vap6190_ann cld6190_ann  pre6190_l4 
-    ##        7.56        4.82        4.71        4.46        2.64        2.25 
-    ## tmp6190_ann pre6190_ann 
-    ##        0.75        0.00
+    ## # A tibble: 14 × 9
+    ##    var         importance  mean         sd   min   q25   med   q75   max
+    ##    <chr>            <dbl> <dbl>      <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+    ##  1 tmn6190_ann      24.6  0.317 0.0449     0.278 0.296 0.306 0.310 0.394
+    ##  2 tmx6190_ann      14.3  0.604 0.0178     0.585 0.598 0.600 0.602 0.633
+    ##  3 dtr6190_ann       9.17 0.746 0.0125     0.734 0.739 0.741 0.749 0.766
+    ##  4 h_dem             8.91 0.753 0.0119     0.741 0.749 0.750 0.752 0.773
+    ##  5 ecoreg            8.16 0.774 0.0148     0.757 0.761 0.775 0.783 0.792
+    ##  6 pre6190_l7        7.8  0.784 0.0136     0.773 0.773 0.777 0.791 0.804
+    ##  7 pre6190_l10       7.72 0.786 0.00979    0.770 0.784 0.791 0.792 0.793
+    ##  8 pre6190_l1        5    0.861 0.00387    0.856 0.860 0.862 0.863 0.866
+    ##  9 frs6190_ann       4.66 0.871 0.0125     0.850 0.868 0.875 0.879 0.882
+    ## 10 vap6190_ann       4.29 0.881 0.00545    0.874 0.879 0.879 0.884 0.889
+    ## 11 cld6190_ann       2.56 0.929 0.00426    0.922 0.929 0.929 0.931 0.933
+    ## 12 pre6190_l4        2.06 0.943 0.00346    0.938 0.941 0.943 0.946 0.947
+    ## 13 tmp6190_ann       0.71 0.980 0.00276    0.977 0.978 0.980 0.982 0.984
+    ## 14 pre6190_ann       0    1.00  0.00000107 1.00  1.00  1.00  1.00  1.00
 
 #### pAUC (presence AUC)
 

@@ -32,7 +32,7 @@ variable_importance = function(x, y,
                                ...){
   baseline = predict(x, y, ...) # the staring point of the model
   ny = nrow(y)
-  r = sapply(names(x$samplemeans),
+  r = sapply(variable_names(x),
     function(varname){          # shuffle each variable n times
       orig_values = y[,varname, drop = TRUE]
       r = sapply(seq_len(n),
@@ -58,4 +58,14 @@ variable_importance = function(x, y,
          "decreasing" = dplyr::arrange(r, dplyr::desc(importance)),
          "increasing" = dplyr::arrange(r, importance),
          r)
+}
+
+
+#' Retrieve variable names
+#' 
+#' @export
+#' @param x maxnet model object
+#' @return character vector of one or more names
+variable_names = function(x){
+  names(x$samplemeans)
 }

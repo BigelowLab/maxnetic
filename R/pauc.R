@@ -83,7 +83,7 @@ pauc_vector <- function(f, v,
        sensitivity = y,
        area = sum(diff(x) * (y[2:length(y)]+ y[1:length(y)-1])/2),
        fn = fn,
-       vn = fv)
+       vn = vn)
   
 }
 

@@ -92,7 +92,7 @@ plot.pAUC = function(x,
   
   y = with(x, dplyr::tibble(x = fpa, y = sensitivity))
   
-  ggplot2::ggplot(data = y, aes(x = x, y = y)) + 
+  ggplot2::ggplot(data = y, ggplot2::aes(x = x, y = y)) + 
     ggplot2::geom_step(colour = "black") + 
     ggplot2::geom_segment(ggplot2::aes(x = 0, y = 0, xend = 1, yend = 1), colour = "grey") +
     ggplot2::labs(x = xlab, y = ylab, title = title, ...) +

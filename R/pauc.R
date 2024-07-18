@@ -67,16 +67,22 @@ pauc_vector <- function(f, v,
   
   if (tolower(method[1]) == 'fast') return(pauc_vector_fast(f,v,thr = thr))
   
+  # remove missing values
   f <- f[!is.na(f)]
   fn <- length(f)
   v <- v[!is.na(v)]
   vn <- length(v)
+  
+  # preform the outputs
+  # x is fractional predicted area (fpa) or 1-specificity (1-TPR)
+  # y is the sensitivity or 1-omission rate
   x <- rep(0, length(thr))
   y <- x
+  
   for (i in seq_along(x)){
-    ix <- sum(f > thr[i])
+    ix <- sum(f > thr[i])  # fraction of prediction above 1, 0.9, 0.8, ...
     x[i] <- ix/fn
-    iy <- sum(v > thr[i])
+    iy <- sum(v > thr[i])  # fraction of obs-pred above 1, 0.9, 0.8, ...
     y[i] <- iy/vn
   }
   list(fpa = x, 
@@ -100,14 +106,16 @@ pauc_vector <- function(f, v,
 #'  \item{fpa, a vector of fpa (fractional predicted area)}
 #'  \item{sensitivity, a vector of sensitivity (1-omission rate)}
 #'  \item{area, AUC}
+#'  \item{fn, count f non-missing values}
+#'  \item{vn, count v non-missing values}
 #'  }
 pauc_vector_fast <- function(f, v, thr = seq(from = 1, to = 0, by = -0.001)){
   
   f   <- f[is.finite(f)]
-  f   <- Rfast::Sort(f, na.last = NA)
+  f   <- Rfast::Sort(f, na.last = NA)  # removes NAs
   fn  <- length(f)
   v   <- v[is.finite(v)]
-  v   <- Rfast::Sort(v, na.last = NA)
+  v   <- Rfast::Sort(v, na.last = NA)  # removes NAs
   vn  <- length(v)
   x   <- rep(0, length(thr))
   y   <- x
@@ -120,5 +128,7 @@ pauc_vector_fast <- function(f, v, thr = seq(from = 1, to = 0, by = -0.001)){
   
   list(fpa = x,
        sensitivity = y,
-       area = a)
+       area = a,
+       fn = fn,
+       vn = vn)
 }

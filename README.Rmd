@@ -70,7 +70,9 @@ ok = lapply(r, str)
 Plot the response curves
 
 ```{r plot_response}
-plot(mod, type = 'cloglog', mar = c(2,2,2,1))
+p = gather_plots(r)
+
+p
 ```
 
 Now compute ROC and show

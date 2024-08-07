@@ -2,8 +2,8 @@
 % Please edit documentation in R/maxnetic-package.R
 \docType{package}
 \name{maxnetic}
-\alias{maxnetic}
 \alias{maxnetic-package}
+\alias{maxnetic}
 \title{maxnetic package}
 \description{
 Supplementary tools extending the maxnet package.

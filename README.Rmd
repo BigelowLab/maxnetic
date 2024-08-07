@@ -82,7 +82,9 @@ r <- plot(model, type = "cloglog", plot = FALSE)
 #### Plot the response curves
 
 ```{r plot_response}
-plot(model, type = 'cloglog', mar = c(2,2,2,1))
+p = gather_plots(r)
+
+p
 ```
 
 #### Now compute ROC and show.

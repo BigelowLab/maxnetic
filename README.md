@@ -86,10 +86,16 @@ r <- plot(model, type = "cloglog", plot = FALSE)
 #### Plot the response curves
 
 ``` r
-plot(model, type = 'cloglog', mar = c(2,2,2,1))
+p = gather_plots(r)
 ```
 
 ![](README_files/figure-gfm/plot_response-1.png)<!-- -->
+
+``` r
+p
+```
+
+![](README_files/figure-gfm/plot_response-2.png)<!-- -->
 
 #### Now compute ROC and show.
 
@@ -97,6 +103,10 @@ plot(model, type = 'cloglog', mar = c(2,2,2,1))
 roc = ROC(x)
 plot(roc, title = "Bradypus model")
 ```
+
+    ## Warning in ggplot2::geom_segment(ggplot2::aes(x = 0, y = 0, xend = 1, yend = 1), : All aesthetics have length 1, but the data has 1115 rows.
+    ## ℹ Please consider using `annotate()` or provide this layer with data containing
+    ##   a single row.
 
 ![](README_files/figure-gfm/roc-1.png)<!-- -->
 
@@ -121,20 +131,20 @@ variable_importance(model, dplyr::select(obs, -presence), type = "cloglog",
     ## # A tibble: 14 × 9
     ##    var         importance  mean         sd   min   q25   med   q75   max
     ##    <chr>            <dbl> <dbl>      <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-    ##  1 tmn6190_ann      24.6  0.317 0.0449     0.278 0.296 0.306 0.310 0.394
-    ##  2 tmx6190_ann      14.3  0.604 0.0178     0.585 0.598 0.600 0.602 0.633
-    ##  3 dtr6190_ann       9.17 0.746 0.0125     0.734 0.739 0.741 0.749 0.766
-    ##  4 h_dem             8.91 0.753 0.0119     0.741 0.749 0.750 0.752 0.773
-    ##  5 ecoreg            8.16 0.774 0.0148     0.757 0.761 0.775 0.783 0.792
-    ##  6 pre6190_l7        7.8  0.784 0.0136     0.773 0.773 0.777 0.791 0.804
-    ##  7 pre6190_l10       7.72 0.786 0.00979    0.770 0.784 0.791 0.792 0.793
-    ##  8 pre6190_l1        5    0.861 0.00387    0.856 0.860 0.862 0.863 0.866
-    ##  9 frs6190_ann       4.66 0.871 0.0125     0.850 0.868 0.875 0.879 0.882
-    ## 10 vap6190_ann       4.29 0.881 0.00545    0.874 0.879 0.879 0.884 0.889
-    ## 11 cld6190_ann       2.56 0.929 0.00426    0.922 0.929 0.929 0.931 0.933
-    ## 12 pre6190_l4        2.06 0.943 0.00346    0.938 0.941 0.943 0.946 0.947
-    ## 13 tmp6190_ann       0.71 0.980 0.00276    0.977 0.978 0.980 0.982 0.984
-    ## 14 pre6190_ann       0    1.00  0.00000107 1.00  1.00  1.00  1.00  1.00
+    ##  1 tmn6190_ann      24.1  0.347 0.0245     0.317 0.332 0.348 0.355 0.382
+    ##  2 tmx6190_ann      14.6  0.605 0.0168     0.586 0.591 0.610 0.611 0.628
+    ##  3 h_dem             9.34 0.747 0.0196     0.728 0.731 0.739 0.764 0.771
+    ##  4 dtr6190_ann       9.22 0.750 0.0130     0.733 0.739 0.756 0.759 0.763
+    ##  5 pre6190_l10       7.65 0.793 0.0103     0.775 0.794 0.794 0.800 0.801
+    ##  6 ecoreg            7.55 0.795 0.0173     0.776 0.786 0.788 0.807 0.819
+    ##  7 pre6190_l7        7.5  0.797 0.00956    0.782 0.794 0.798 0.804 0.806
+    ##  8 pre6190_l1        5.15 0.860 0.0116     0.841 0.859 0.862 0.869 0.870
+    ##  9 frs6190_ann       5.05 0.863 0.0172     0.839 0.852 0.868 0.875 0.881
+    ## 10 vap6190_ann       4.38 0.881 0.00624    0.870 0.881 0.884 0.885 0.886
+    ## 11 cld6190_ann       2.55 0.931 0.00377    0.925 0.930 0.931 0.934 0.934
+    ## 12 pre6190_l4        2.2  0.940 0.00444    0.935 0.936 0.941 0.943 0.945
+    ## 13 tmp6190_ann       0.75 0.980 0.00343    0.976 0.977 0.980 0.981 0.985
+    ## 14 pre6190_ann       0    1.00  0.00000245 1.00  1.00  1.00  1.00  1.00
 
 #### pAUC (presence AUC)
 
@@ -146,6 +156,10 @@ p = dplyr::filter(x, label == 1)
 pauc = pAUC(x$pred, p$pred)
 plot(pauc)
 ```
+
+    ## Warning in ggplot2::geom_segment(ggplot2::aes(x = 0, y = 0, xend = 1, yend = 1), : All aesthetics have length 1, but the data has 1001 rows.
+    ## ℹ Please consider using `annotate()` or provide this layer with data containing
+    ##   a single row.
 
 ![](README_files/figure-gfm/pauc-1.png)<!-- -->
 

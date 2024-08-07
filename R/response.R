@@ -33,5 +33,5 @@ geom_likelihood = function(df) {
 gather_plots = function(df) {
   z = lapply(df, geom_likelihood)
   patch = patchwork::wrap_plots(z)
-  print(patch)
+  return(patch)
 }

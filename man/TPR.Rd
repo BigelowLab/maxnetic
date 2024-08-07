@@ -2,18 +2,18 @@
 % Please edit documentation in R/metrics.R
 \name{TPR}
 \alias{TPR}
-\title{Compute True Positive Rate \code{TP/P}}
+\title{Compute True Positive Rate \code{TP/P} aka "sensitivity"}
 \usage{
-TPR(x, threshold = seq(from = 0, by = 0.01, length = 100))
+TPR(x, ...)
 }
 \arguments{
-\item{x}{tibble with columns pres (0/1) and pred (0-1)}
+\item{x}{tibble with columns label (0/1) and pred (0-1)}
 
-\item{threshold, }{numeric values at or above are 'positive' predictions}
+\item{...}{further arguments for \code{\link[AUC]{sensitivity}}}
 }
 \value{
-vector of TPR
+list as per \code{\link[AUC]{sensitivity}}
 }
 \description{
-Compute True Positive Rate \code{TP/P}
+See more \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{here}
 }

@@ -14,7 +14,7 @@
 )
 }
 \arguments{
-\item{x}{RC object}
+\item{x}{ROC class object}
 
 \item{xlab}{char, label for x axis}
 
@@ -28,7 +28,7 @@
 }
 \value{
 ggplot2 object if \code{use} is
- 'ggplot2' or 'ggplot'
+'ggplot2' or 'ggplot'
 }
 \description{
 Plot ROC curve

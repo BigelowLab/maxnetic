@@ -4,15 +4,13 @@
 \alias{ROC}
 \title{Compute Receiver Operator Curve (ROC) space values}
 \usage{
-ROC(x, threshold = seq(from = 0, by = 0.01, length = 100))
+ROC(x)
 }
 \arguments{
-\item{x}{tibble with columns pres (0/1) and pred (0-1)}
-
-\item{threshold, }{numeric values at or above are 'positive' predictions}
+\item{x}{tibble with columns label (0/1) and pred (0-1)}
 }
 \value{
-data frame of class ROC with variables \code{tpr} and \code{fpr}
+list as per \code{\link[AUC]{roc}} with 'area' added
 }
 \description{
 Compute Receiver Operator Curve (ROC) space values

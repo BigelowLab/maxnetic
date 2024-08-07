@@ -2,18 +2,18 @@
 % Please edit documentation in R/metrics.R
 \name{FPR}
 \alias{FPR}
-\title{False Positive Rate \code{FP/N}}
+\title{False Positive Rate \code{FP/N} aka "specificity"}
 \usage{
-FPR(x, threshold = seq(from = 0, by = 0.01, length = 100))
+FPR(x, ...)
 }
 \arguments{
-\item{x}{tibble with columns pres (0/1) and pred (0-1)}
+\item{x}{tibble with columns label (0/1) and pred (0-1)}
 
-\item{threshold, }{numeric values at or above are 'positive' predictions}
+\item{...}{further arguments for \code{\link[AUC]{sensitivity}}}
 }
 \value{
-vector of FPR
+a list as per \code{\link[AUC]{sensitivity}}
 }
 \description{
-False Positive Rate \code{FP/N}
+See more \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{here}
 }

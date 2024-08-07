@@ -6,9 +6,10 @@
 #' @param x maxnet model
 #' @param filename character, the name of the file to save (use .rds extension recommended)
 #' @param ... other arguments for \code{\link[base]{saveRDS}}
-#' @return the input x
+#' @return the input x invisibly
 write_maxnet <- function(x, filename, ...){
   saveRDS(x, file = filename[1], ...) 
+  invisible(x)
 }
 
 #' Read a maxnet model file
